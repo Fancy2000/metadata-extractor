@@ -17,3 +17,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run build.sh
       run: chmod 777 build.sh && sudo ./build.sh
+    - name: push image to docker hub
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ SECRETS.DOCKER_USERNAME }}
+        password: ${{ SECRETS.DOCKER_PASSWORD }}
+        repository: fancy007/metadata-extractor
+        tags: latest, ${{ github.run_number }}
